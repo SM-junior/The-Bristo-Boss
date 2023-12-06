@@ -6,7 +6,6 @@ import SectionTitle from '../../../../components/SectionTitle';
 
 const Featured = () => {
     const date = new Date()
-    console.log(date.getDay());
     return (
         <div className='featured-bg text-white bg-fixed my-20'>
             <div className='py-6'>

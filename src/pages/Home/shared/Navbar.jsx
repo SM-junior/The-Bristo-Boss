@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import '././css/ Navbar.css'
 
 const Navbar = () => {
     return (
@@ -15,7 +17,10 @@ const Navbar = () => {
                         <li><a>Item 3</a></li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">Bristo Boss</a>
+                {/* <a className="btn btn-ghost text-xl uppercase">Bristo Boss</a> */}
+                <Link className="btn btn-ghost text-2xl uppercase logo">
+                    <h2 className="logo">Bristo Boss <br /> <span className="text-[15px] restaurant">rastaurant</span></h2>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

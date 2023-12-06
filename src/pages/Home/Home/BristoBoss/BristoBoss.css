@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Inter&family=Inter+Tight:wght@200&display=swap');
+
+.boss{
+    font-family: 'Cinzel Decorative', serif;
+}
+.details{
+    font-family: 'Inter Tight', sans-serif;
+}
+.bristo-boss{
+    background-image: url('../../../../assets/home/chef-service.jpg');
+}

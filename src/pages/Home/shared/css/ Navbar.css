@@ -8,3 +8,17 @@
 .restaurant{
     letter-spacing: 3px;
 }
+/* App.css */
+.nav-item {
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    color: white; /* Default color */
+  }
+  
+  .nav-item.active {
+    color: black; /* Change to the desired color when active */
+    background-color: white;
+    border-radius: 10px;
+  }
+  

@@ -19,9 +19,7 @@ const Navbar = () => {
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black">
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/menu'>Menu</Link></li>
-                        <li><a>Item 1</a></li>
-                        <li><a>Item 1</a></li>
-                        <li><a>Item 3</a></li>
+                        <li><Link to='/menu'>Shop</Link></li>
                     </ul>
                 </div>
                 <Link className="btn btn-ghost text-2xl uppercase logo">
@@ -31,10 +29,8 @@ const Navbar = () => {
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <li className={`nav-item ${selectedItem === 1 ? 'active' : ''}`} onClick={() => handleItemClick(1)}><Link to='/'>Home</Link></li>
-                    <li
-                    className={`nav-item ${selectedItem === 2 ? 'active' : ''}`} onClick={() => handleItemClick(2)}><Link to='/menu'>Menu</Link></li>
-                    <li className={`nav-item ${selectedItem === 3 ? 'active' : ''}`} onClick={() => handleItemClick(3)}><a>Item 1</a></li>
-                    <li className={`nav-item ${selectedItem === 4 ? 'active' : ''}`} onClick={() => handleItemClick(4)}><a>Item 3</a></li>
+                    <li className={`nav-item ${selectedItem === 2 ? 'active' : ''}`} onClick={() => handleItemClick(2)}><Link to='/menu'>Menu</Link></li>
+                    <li className={`nav-item ${selectedItem === 3 ? 'active' : ''}`} onClick={() => handleItemClick(3)}><Link to='/shop'>Shop</Link></li>
                 </ul>
             </div>
             <div className="navbar-end">
@@ -44,4 +40,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Navbar;      

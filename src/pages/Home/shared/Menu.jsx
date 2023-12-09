@@ -12,7 +12,7 @@ const Menu = ({ items }) => {
                         <h2 className='text-xl'>{name}----------------</h2>
                         <p className='text-[13px]'>{recipe}</p>
                     </div>
-                    <p className='text-yellow-400'>{price}</p>
+                    <p className='text-orange-400'>${price}</p>
                 </div>
             {/* </div> */}
         </>

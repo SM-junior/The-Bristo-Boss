@@ -1,8 +1,10 @@
 import React from 'react';
 import { Parallax, Background } from 'react-parallax';
+import { useState } from 'react';
 
 
-const Cover = ({ img, title }) => {
+const Cover = ({ img, title}) => {
+
     return (
         <Parallax
             blur={{ min: -50, max: 50 }}

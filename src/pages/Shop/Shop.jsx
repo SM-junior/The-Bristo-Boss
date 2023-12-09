@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import shopImg from '../../../assets/shop/shop.jpg'
-import Cover from '../../Home/shared/Cover/Cover';
-import useMenu from '../../../hooks/useMenu';
+import shopImg from '../../assets/shop/shop.jpg'
+import Cover from '../Home/shared/Cover/Cover';
+import useMenu from '../../hooks/useMenu';
 import ShopCategory from './ShopCategory';
 import { useParams } from 'react-router-dom';
 

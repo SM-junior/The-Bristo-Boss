@@ -7,12 +7,17 @@ import Cover from '../Home/shared/Cover/Cover';
 import useMenu from '../../hooks/useMenu';
 import ShopCategory from './ShopCategory';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Shop = () => {
-    const [tabIndex, setTabIndex] = useState(0);
-    const [menu] = useMenu();
+    const categories=['Salads','pizza','soups','Desserts','drinks'];
     const {category}=useParams()
+    const initialIndex=categories.indexOf(category)
+    const [tabIndex, setTabIndex] = useState(initialIndex);
+    const [menu] = useMenu();
     console.log(category);
+
+
     const desserts = menu.filter(items => items.category === 'dessert');
     const soups = menu.filter(items => items.category === 'soup');
     const salads = menu.filter(items => items.category === 'salad');
@@ -21,13 +26,16 @@ const Shop = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Bristo Boss | Shop</title>
+            </Helmet>
             <Cover img={shopImg} title='Our shop'></Cover>
             <div className='py-5'>
                 <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                     <TabList className='text-center uppercase mb-4'>
                         <Tab>Salad</Tab>
                         <Tab>Pizza</Tab>
-                        <Tab>sops</Tab>
+                        <Tab>soup</Tab>
                         <Tab>desserts</Tab>
                         <Tab>drinks</Tab>
                     </TabList>

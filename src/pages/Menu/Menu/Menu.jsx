@@ -11,7 +11,7 @@ import MenuCategory from "../MenuCategory/MenuCategory";
 
 const Menu = () => {
     const [menu] = useMenu();
-    
+
     const dessert = menu.filter(items => items.category === 'dessert');
     const soup = menu.filter(items => items.category === 'soup');
     const salad = menu.filter(items => items.category === 'salad');

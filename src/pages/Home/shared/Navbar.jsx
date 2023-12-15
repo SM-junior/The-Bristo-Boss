@@ -20,6 +20,8 @@ const Navbar = () => {
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/menu'>Menu</Link></li>
                         <li><Link to='/shop/Salads'>Shop</Link></li>
+                        <li><Link to='/login'>Login</Link></li>
+                        <li><Link to='/signup'>SignUp</Link></li>
                     </ul>
                 </div>
                 <Link className="btn btn-ghost text-2xl uppercase logo">
@@ -31,6 +33,8 @@ const Navbar = () => {
                     <li className={`nav-item ${selectedItem === 1 ? 'active' : ''}`} onClick={() => handleItemClick(1)}><Link to='/'>Home</Link></li>
                     <li className={`nav-item ${selectedItem === 2 ? 'active' : ''}`} onClick={() => handleItemClick(2)}><Link to='/menu'>Menu</Link></li>
                     <li className={`nav-item ${selectedItem === 3 ? 'active' : ''}`} onClick={() => handleItemClick(3)}><Link to='/shop/Salads'>Shop</Link></li>
+                    <li className={`nav-item ${selectedItem === 3 ? 'active' : ''}`} onClick={() => handleItemClick(4)}><Link to='/login'>Login</Link></li>
+                    <li className={`nav-item ${selectedItem === 3 ? 'active' : ''}`} onClick={() => handleItemClick(5)}><Link to='/signup'>SignUp</Link></li>
                 </ul>
             </div>
             <div className="navbar-end">

@@ -1,9 +1,42 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../../assets/others/authentication1.png'
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
+import { useContext} from 'react';
+import { authContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2'
 
 const SignUp = () => {
+    const {createUser}=useContext(authContext);
+    const navigate=useNavigate()
+
+    const handleRegister=(e)=>{
+        e.preventDefault()
+        const form=e.target;
+        const name=form.name.value;
+        const email=form.email.value;
+        const password=form.password.value;
+        console.log(name, email, password);
+
+        createUser(email,password)
+        .then(result=>{
+            Swal.fire({
+                icon: "success",
+                title: "User has been created successfully",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate('/login')
+        })
+        .catch(error=>{
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error.message,
+              });
+        })
+    }
+
     return (
         <div className="hero min-h-screen w-[900px] mx-auto mt-10 border-orange-600">
             <div className="hero-content flex flex-col md:flex-row items-center content-around w-full">
@@ -12,7 +45,7 @@ const SignUp = () => {
                         <h1 className="text-5xl font-bold ">SignUp now!</h1>
                     </div>
                     <div className="card w-full shadow-2xl bg-base-100 my-7">
-                        <form className="card-body">
+                        <form onSubmit={handleRegister} className="card-body">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
@@ -32,15 +65,14 @@ const SignUp = () => {
                                 <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Sign Up</button>
-                            </div>
+                            <input className='btn btn-success' type="submit" value="SignUp" />                            </div>
                             <div>
                                 <Link to='/login'><p className='text-primary hover:scale-110 my-3'>Already registered? Go to log in</p></Link>
                                 <p className='my-3'>Or sign up with</p>
                                 <div className='flex items-center justify-around w-60 mx-auto'>
-                                    <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center'><FaFacebookF /></p></Link>
-                                    <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center'><FaGoogle /></p></Link>
-                                    <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center'><FaGithub /></p></Link>
+                                    <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaFacebookF /></p></Link>
+                                    <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGoogle /></p></Link>
+                                    <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGithub /></p></Link>
                                 </div>
                             </div>
                         </form>

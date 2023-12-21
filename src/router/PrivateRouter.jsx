@@ -7,12 +7,12 @@ const PrivateRouter = ({ children }) => {
     const { user, loading } = useContext(authContext);
     const location = useLocation()
 
-    // if (loading) {
-    //     return <progress className="progress w-56 mx-auto"></progress>
-    // }
-    if (user?.email) {
+    if (loading) {
+        return <progress className="progress w-56 mx-auto"></progress>
+    }
+    if (user) {
         return children
     }
-    return <Navigate to='/login' state={{ from: location }} replace={true}></Navigate>
+    return <Navigate to='/login' state={{from: location}} replace></Navigate>
 }
 export default PrivateRouter;

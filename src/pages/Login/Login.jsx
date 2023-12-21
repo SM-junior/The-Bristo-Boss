@@ -14,10 +14,9 @@ const Login = () => {
     const [disabled, setDisabled] = useState(true);
     const [error, setError] = useState()
     const { login } = useContext(authContext);
-    const location = useLocation();
-    console.log(location);
-    const navigate = useNavigate()
-    const from = location.state?.from?.pathname || '/';
+    const navigate=useNavigate();
+    const location=useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -43,8 +42,13 @@ const Login = () => {
 
         login(email, password)
             .then(result => {
-                console.log(result.user);
-                navigate(from, { replace: true })
+                Swal.fire({
+                    icon: "success",
+                    title: "Use login successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate(from, {replace: true})
 
             })
             .catch(error => {
@@ -87,9 +91,9 @@ const Login = () => {
                                     </label>
                                 </div>
                                 <div className="form-control">
-                                    <input type="text" ref={captchaRef} name='captcha' placeholder='type here' className="input input-bordered" required />
+                                    <input onBlur={handleValidateCaptcha} type="text" ref={captchaRef} name='captcha' placeholder='type here' className="input input-bordered" required />
                                 </div>
-                                <button onClick={handleValidateCaptcha} className='btn btn-xs'>Validate Captcha</button>
+                                {/* <button onClick={handleValidateCaptcha} className='btn btn-xs'>Validate Captcha</button> */}
                                 <div className="form-control mt-6">
                                     <input disabled={disabled} className='btn btn-success' type="submit" value="Login" />
                                 </div>

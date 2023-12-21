@@ -8,13 +8,14 @@
 
 
 //using react hook form..................................................................................................
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../../assets/others/authentication1.png'
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
 import { useForm } from "react-hook-form"
 import { Helmet } from 'react-helmet-async';
 import { authContext } from '../../Provider/AuthProvider';
 import { useContext } from 'react';
+import Swal from 'sweetalert2'
 
 
 const SignUp = () => {
@@ -52,14 +53,25 @@ const SignUp = () => {
     //using react hook form...............................................................................
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const {createUser}=useContext(authContext)
+    const { createUser } = useContext(authContext)
+    const navigate=useNavigate()
 
     const onSubmit = (data) => {
         console.log(data)
         createUser(data.email, data.password)
-        .then(result=>{
-            console.log(result.user);
-        })
+            .then(result => {
+                Swal.fire({
+                    icon: "success",
+                    title: "User has been created successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                console.log(result.user);
+                navigate('/login')
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     }
 
     return (

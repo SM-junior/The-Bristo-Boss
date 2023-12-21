@@ -1,11 +1,3 @@
-//............................................................................................................
-// import { Link, useNavigate } from 'react-router-dom';
-// import img from '../../assets/others/authentication1.png'
-// import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
-// import { useContext} from 'react';
-// import { authContext } from '../../Provider/AuthProvider';
-// import Swal from 'sweetalert2'
-
 
 //using react hook form..................................................................................................
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,45 +8,14 @@ import { Helmet } from 'react-helmet-async';
 import { authContext } from '../../Provider/AuthProvider';
 import { useContext } from 'react';
 import Swal from 'sweetalert2'
+import { useState } from 'react';
 
 
 const SignUp = () => {
-    //......................................................................................................................
-    // const navigate=useNavigate()
-
-    // const handleRegister=(e)=>{
-    //     e.preventDefault()
-    //     const form=e.target;
-    //     const name=form.name.value;
-    //     const email=form.email.value;
-    //     const password=form.password.value;
-    //     console.log(name, email, password);
-
-    //     createUser(email,password)
-    //     .then(result=>{
-    //         Swal.fire({
-    //             icon: "success",
-    //             title: "User has been created successfully",
-    //             showConfirmButton: false,
-    //             timer: 1500
-    //           });
-    //           navigate('/login')
-    //     })
-    //     .catch(error=>{
-    //         Swal.fire({
-    //             icon: "error",
-    //             title: "Oops...",
-    //             text: error.message,
-    //           });
-    //     })
-
-    // }
-
-    //using react hook form...............................................................................
-
-    const { register, handleSubmit, formState: { errors }, } = useForm();
-    const { createUser } = useContext(authContext)
-    const navigate=useNavigate()
+    const [error,setError]=useState('')
+    const { register, handleSubmit, reset, formState: { errors }, } = useForm();
+    const { createUser, updateUserProfile } = useContext(authContext)
+    const navigate = useNavigate()
 
     const onSubmit = (data) => {
         console.log(data)
@@ -66,62 +27,16 @@ const SignUp = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(result.user);
+                updateUserProfile(data.name, data.photoUrl)
+                reset()
                 navigate('/login')
             })
             .catch(error => {
-                console.log(error.message);
+                setError(error.message);
             })
     }
 
     return (
-        //...............................................................................
-        // <div className="hero min-h-screen w-[900px] mx-auto mt-10 border-orange-600">
-        //     <div className="hero-content flex flex-col md:flex-row items-center content-around w-full">
-        //         <div className='w-1/2 text-center my-4'>
-        //             <div className="text-center">
-        //                 <h1 className="text-5xl font-bold ">SignUp now!</h1>
-        //             </div>
-        //             <div className="card w-full shadow-2xl bg-base-100 my-7">
-        //                 <form onSubmit={handleRegister} className="card-body">
-        //                     <div className="form-control">
-        //                         <label className="label">
-        //                             <span className="label-text">Name</span>
-        //                         </label>
-        //                         <input type="text" name='name' placeholder="name" className="input input-bordered" required />
-        //                     </div>
-        //                     <div className="form-control">
-        //                         <label className="label">
-        //                             <span className="label-text">Email</span>
-        //                         </label>
-        //                         <input type="email" name='email' placeholder="email" className="input input-bordered" required />
-        //                     </div>
-        //                     <div className="form-control">
-        //                         <label className="label">
-        //                             <span className="label-text">Password</span>
-        //                         </label>
-        //                         <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-        //                     </div>
-        //                     <div className="form-control mt-6">
-        //                     <input className='btn btn-success' type="submit" value="SignUp" />                            </div>
-        //                     <div>
-        //                         <Link to='/login'><p className='text-primary hover:scale-110 my-3'>Already registered? Go to log in</p></Link>
-        //                         <p className='my-3'>Or sign up with</p>
-        //                         <div className='flex items-center justify-around w-60 mx-auto'>
-        //                             <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaFacebookF /></p></Link>
-        //                             <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGoogle /></p></Link>
-        //                             <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGithub /></p></Link>
-        //                         </div>
-        //                     </div>
-        //                 </form>
-        //             </div>
-        //         </div>
-        //         <div className='w-1/2'>
-        //             <img src={img} alt="" />
-        //         </div>
-        //     </div>
-        // </div>
-
         //using react hook form...............................................................................
         <>
             <Helmet>
@@ -141,6 +56,13 @@ const SignUp = () => {
                                     </label>
                                     <input type="text" {...register("name", { required: true })} name='name' placeholder="name" className="input input-bordered" />
                                     {errors.name && <span className='text-red-500'>Name is required</span>}
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Photo</span>
+                                    </label>
+                                    <input type="text" {...register("photoUrl", { required: true })} placeholder="photo url" className="input input-bordered" />
+                                    {errors.photoUrl && <span className='text-red-500'>Photo Url is required</span>}
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
@@ -166,6 +88,7 @@ const SignUp = () => {
                                 </div>
                                 <div className="form-control mt-6">
                                     <input className='btn btn-success' type="submit" value="SignUp" /></div>
+                                    <p className='text-red-500'>{error}</p>
                                 <div>
                                     <Link to='/login'><p className='text-primary hover:scale-110 my-3'>Already registered? Go to log in</p></Link>
                                     <p className='my-3'>Or sign up with</p>

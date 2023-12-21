@@ -13,7 +13,7 @@ const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
     const [error, setError] = useState()
-    const { login } = useContext(authContext);
+    const { login} = useContext(authContext);
     const navigate=useNavigate();
     const location=useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -42,6 +42,7 @@ const Login = () => {
 
         login(email, password)
             .then(result => {
+                console.log(result.user.displayName);
                 Swal.fire({
                     icon: "success",
                     title: "Use login successful",

@@ -18,7 +18,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar bg-black text-white fixed z-10 max-w-screen-xl mx-auto opacity-60">
+        <div className="navbar bg-black text-white fixed z-10 max-w-screen-xl mx-auto bg-opacity-60">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -28,11 +28,11 @@ const Navbar = () => {
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/menu'>Menu</Link></li>
                         <li><Link to='/shop/Salads'>Shop</Link></li>
-                        {user ?
-                            <button onClick={handleLogOut} ><Link>Logout</Link></button>
+                        <li>{user ?
+                            <><button onClick={handleLogOut}><Link>Logout</Link></button><span><img className="h-12 w-12 rounded-full border-2" src={user.photoURL} alt="" /></span></>
                             :
                             <button><Link to='/login'>Login</Link></button>
-                        }
+                        }</li>
                     </ul>
                 </div>
                 <Link className="btn btn-ghost text-2xl uppercase logo">
@@ -44,15 +44,14 @@ const Navbar = () => {
                     <li className={`nav-item ${selectedItem === 1 ? 'active' : ''}`} onClick={() => handleItemClick(1)}><Link to='/'>Home</Link></li>
                     <li className={`nav-item ${selectedItem === 2 ? 'active' : ''}`} onClick={() => handleItemClick(2)}><Link to='/menu'>Menu</Link></li>
                     <li className={`nav-item ${selectedItem === 3 ? 'active' : ''}`} onClick={() => handleItemClick(3)}><Link to='/shop/Salads'>Shop</Link></li>
-                    {user ?
-                        <><button onClick={handleLogOut} className='mx-2'><Link>Logout</Link></button><span><a className="btn">hi</a></span></>
-                        :
-                        <button><Link to='/login'>Login</Link></button>
-                    }
+                    <li>
+                        {user ?
+                            <span><button onClick={handleLogOut} className='mx-2'><Link>Logout</Link></button><img className="h-12 w-12 rounded-full border-2" src={user.photoURL} alt="" /></span>
+                            :
+                            <button><Link to='/login'>Login</Link></button>
+                        }
+                    </li>
                 </ul>
-            </div>
-            <div className="navbar-end h-12 w-12 rounded-full ms-3">
-
             </div>
         </div>
     );

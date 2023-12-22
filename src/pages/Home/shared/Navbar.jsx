@@ -1,15 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { Link } from "react-router-dom";
 import { authContext } from "../../../Provider/AuthProvider";
 import '././css/ Navbar.css'
+import { FaShoppingCart } from "react-icons/fa";
+
 
 const Navbar = () => {
     const { user, logOut } = useContext(authContext)
-    const [selectedItem, setSelectedItem] = useState(null);
-
-    const handleItemClick = (item) => {
-        setSelectedItem(item);
-    };
 
     const handleLogOut = () => {
         logOut()
@@ -40,10 +37,18 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    <li className={`nav-item ${selectedItem === 1 ? 'active' : ''}`} onClick={() => handleItemClick(1)}><Link to='/'>Home</Link></li>
-                    <li className={`nav-item ${selectedItem === 2 ? 'active' : ''}`} onClick={() => handleItemClick(2)}><Link to='/menu'>Menu</Link></li>
-                    <li className={`nav-item ${selectedItem === 3 ? 'active' : ''}`} onClick={() => handleItemClick(3)}><Link to='/shop/Salads'>Shop</Link></li>
+                <ul className="menu menu-horizontal px-1 items-center">
+                    <li><Link to='/'>Home</Link></li>
+                    <li><Link to='/menu'>Menu</Link></li>
+                    <li><Link to='/shop/Salads'>Shop</Link></li>
+                    <li>
+                        <Link>
+                            <button className="btn text-xl bg-transparent text-white border-none">
+                                <span><FaShoppingCart></FaShoppingCart></span>
+                                <div className="badge badge-secondary">+0</div>
+                            </button>
+                        </Link>
+                    </li>
                     <li>
                         {user ?
                             <span><button onClick={handleLogOut} className='mx-2'><Link>Logout</Link></button><img className="h-12 w-12 rounded-full border-2" src={user.photoURL} alt="" /></span>
@@ -57,4 +62,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;      
+export default Navbar;

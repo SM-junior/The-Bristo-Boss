@@ -1,7 +1,37 @@
 import React from 'react';
+import { useContext } from 'react';
+import { authContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2'
 
-const ShopCard = ({item}) => {
-    const {name, image, price, recipe}=item;
+const ShopCard = ({ item }) => {
+    const { name, image, price, recipe, _id } = item;
+    const { user } = useContext(authContext);
+
+    const handleAddCart = (item) => {
+        if (user && user.email) {
+            const cartItem = { menuItemId: _id, name, image, price, email: user.email }
+            console.log(cartItem);
+            fetch('http://localhost:3000/carts', {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertedId) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Food is added successful",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+        }
+    }
     return (
         <div className="card w-76 bg-base-100 shadow-xl">
             <figure>
@@ -11,9 +41,9 @@ const ShopCard = ({item}) => {
             <div className="card-body items-center text-center">
                 <h2 className="card-title">{name}</h2>
                 <p>{recipe}</p>
-                
+
                 <div className="card-actions">
-                    <button className="btn hover:text-orange-400 hover:border-orange-400 hover:bg-slate-700 uppercase border-0 border-b-2 border-orange-500 text-black mt-4">Add to Cart</button>
+                    <button onClick={() => handleAddCart(item)} className="btn hover:text-orange-400 hover:border-orange-400 hover:bg-slate-700 uppercase border-0 border-b-2 border-orange-500 text-black mt-4">Add to Cart</button>
                 </div>
             </div>
         </div>

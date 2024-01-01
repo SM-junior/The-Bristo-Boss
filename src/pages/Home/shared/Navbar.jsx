@@ -1,13 +1,14 @@
-import { useContext} from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { authContext } from "../../../Provider/AuthProvider";
 import '././css/ Navbar.css'
 import { FaShoppingCart } from "react-icons/fa";
+import useCart from '../../../hooks/useCart';
 
 
 const Navbar = () => {
-    const { user, logOut } = useContext(authContext)
-
+    const { user, logOut } = useContext(authContext);
+    const [cart] = useCart();
     const handleLogOut = () => {
         logOut()
             .then(result => { })
@@ -25,6 +26,14 @@ const Navbar = () => {
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/menu'>Menu</Link></li>
                         <li><Link to='/shop/Salads'>Shop</Link></li>
+                        <li>
+                            <Link to='/dashboard/mycart'>
+                                <button className="btn text-xl bg-transparent text-white border-none">
+                                    <span><FaShoppingCart></FaShoppingCart></span>
+                                    <div className="badge badge-secondary">+{cart.length}</div>
+                                </button>
+                            </Link>
+                        </li>
                         <li>{user ?
                             <><button onClick={handleLogOut}><Link>Logout</Link></button><span><img className="h-12 w-12 rounded-full border-2" src={user.photoURL} alt="" /></span></>
                             :
@@ -42,10 +51,10 @@ const Navbar = () => {
                     <li><Link to='/menu'>Menu</Link></li>
                     <li><Link to='/shop/Salads'>Shop</Link></li>
                     <li>
-                        <Link>
+                        <Link to='/dashboard/mycart'>
                             <button className="btn text-xl bg-transparent text-white border-none">
                                 <span><FaShoppingCart></FaShoppingCart></span>
-                                <div className="badge badge-secondary">+0</div>
+                                <div className="badge badge-secondary">+{cart.length}</div>
                             </button>
                         </Link>
                     </li>

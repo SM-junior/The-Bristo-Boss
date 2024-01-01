@@ -2,10 +2,12 @@ import React from 'react';
 import { useContext } from 'react';
 import { authContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2'
+import useCart from '../../hooks/useCart';
 
 const ShopCard = ({ item }) => {
     const { name, image, price, recipe, _id } = item;
     const { user } = useContext(authContext);
+    const [cart, refetch]=useCart()
 
     const handleAddCart = (item) => {
         if (user && user.email) {
@@ -16,12 +18,12 @@ const ShopCard = ({ item }) => {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(user)
+                body: JSON.stringify(cartItem)
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     if (data.insertedId) {
+                        refetch()
                         Swal.fire({
                             icon: "success",
                             title: "Food is added successful",

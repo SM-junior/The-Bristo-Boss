@@ -1,7 +1,7 @@
 
 import { NavLink, Outlet } from 'react-router-dom';
 import { FaCalendarAlt, FaHome, FaWallet, FaShoppingCart, FaClipboardCheck, FaShoppingBag } from "react-icons/fa";
-import { FaRankingStar,FaBars } from "react-icons/fa6";
+import { FaRankingStar, FaBars } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import SectionTitle from '../components/SectionTitle';
 
@@ -9,7 +9,7 @@ import SectionTitle from '../components/SectionTitle';
 const Dashboard = () => {
     return (
         <>
-            <div className="flex w-full max-h-screen">
+            <div className="flex w-full min-h-screen bg-slate-100">
                 <div className="w-[20%] bg-[#D1A054] cart-side">
                     <NavLink className="btn btn-ghost uppercase logo my-6 text-left">
                         <h2 className="logo">Bristo Boss <br /> <span className="text-[15px] restaurant">rastaurant</span></h2>
@@ -28,10 +28,10 @@ const Dashboard = () => {
                         <li className='py-2 hover:bg-slate-500 hover:text-white'><NavLink to='/contact' className='flex items-center'><span className='px-2'><MdEmail></MdEmail> </span> Contact</NavLink></li>
                     </ul>
                 </div>
-                <div className='p-2'>
+                <div className='mx-auto'>
                     <SectionTitle
-                    subHeading='Cart'
-                    heading='Wonna Add More??'
+                        subHeading='Cart'
+                        heading='Wanna Add More??'
                     ></SectionTitle>
                     <Outlet></Outlet>
                 </div>

@@ -60,7 +60,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         {user ?
-                            <span><button onClick={handleLogOut} className='mx-2'><Link>Logout</Link></button><img className="h-12 w-12 rounded-full border-2" src={user.photoURL} alt="" /></span>
+                            <span><button onClick={handleLogOut} className='mx-2 hover:scale-110'><Link>Logout</Link></button><img className="h-12 w-12 rounded-full border-2" src={user.photoURL} alt="" /></span>
                             :
                             <button><Link to='/login'>Login</Link></button>
                         }

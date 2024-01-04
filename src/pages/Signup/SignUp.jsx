@@ -1,41 +1,56 @@
 
 //using react hook form..................................................................................................
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import img from '../../assets/others/authentication1.png'
-import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
+
 import { useForm } from "react-hook-form"
 import { Helmet } from 'react-helmet-async';
 import { authContext } from '../../Provider/AuthProvider';
 import { useContext } from 'react';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { useState } from 'react';
+import GoogleLogin from '../../components/googleLogin';
+
 
 
 const SignUp = () => {
-    const [error,setError]=useState('')
+    const [error, setError] = useState('')
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const { createUser, updateUserProfile } = useContext(authContext)
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        console.log(data)
         createUser(data.email, data.password)
             .then(result => {
-                Swal.fire({
-                    icon: "success",
-                    title: "User has been created successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
                 updateUserProfile(data.name, data.photoUrl)
-                reset()
-                navigate('/login')
+                    .then(() => {
+                        const signInUser = { name: data.name, email: data.email }
+                        fetch('http://localhost:3000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(signInUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "User has been created successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    reset()
+                                    navigate('/login')
+                                }
+                            })
+                    })
             })
             .catch(error => {
                 setError(error.message);
             })
     }
-
     return (
         //using react hook form...............................................................................
         <>
@@ -87,18 +102,11 @@ const SignUp = () => {
                                     {errors.password?.type === 'pattern' && <span className='text-red-500'>Password must have one upper case, one lower case, one number & one special character</span>}
                                 </div>
                                 <div className="form-control mt-6">
-                                    <input className='btn btn-success' type="submit" value="SignUp" /></div>
-                                    <p className='text-red-500'>{error}</p>
-                                <div>
-                                    <Link to='/login'><p className='text-primary hover:scale-110 my-3'>Already registered? Go to log in</p></Link>
-                                    <p className='my-3'>Or sign up with</p>
-                                    <div className='flex items-center justify-around w-60 mx-auto'>
-                                        <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaFacebookF /></p></Link>
-                                        <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGoogle /></p></Link>
-                                        <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGithub /></p></Link>
-                                    </div>
+                                    <input className='btn btn-success' type="submit" value="SignUp" />
                                 </div>
+                                <p className='text-red-500'>{error}</p>
                             </form>
+                            <GoogleLogin></GoogleLogin>
                         </div>
                     </div>
                     <div className='w-1/2'>

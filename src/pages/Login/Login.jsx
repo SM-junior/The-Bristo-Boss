@@ -1,21 +1,19 @@
-import React, { useEffect } from 'react'; import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react'; import { useLocation, useNavigate } from 'react-router-dom';
 import img from '../../assets/others/authentication1.png'
-import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { useRef, useContext, useState } from 'react';
 import { authContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2'
 import { Helmet } from 'react-helmet-async';
-
-
+import GoogleLogin from '../../components/googleLogin';
 
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
     const [error, setError] = useState()
-    const { login} = useContext(authContext);
-    const navigate=useNavigate();
-    const location=useLocation();
+    const { login } = useContext(authContext);
+    const navigate = useNavigate();
+    const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
@@ -49,15 +47,11 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                navigate(from, {replace: true})
-
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 setError(error.message)
-
             })
-
-
     }
 
     return (
@@ -65,7 +59,6 @@ const Login = () => {
             <Helmet>
                 <title>Bristo Boss || Login</title>
             </Helmet>
-
             <div className="hero min-h-screen w-[900px] mx-auto mt-10 border-orange-600">
                 <div className="hero-content flex flex-col md:flex-row items-center content-around w-full">
                     <div className='w-1/2 text-center my-4'>
@@ -101,16 +94,8 @@ const Login = () => {
                                 <div>
                                     <p className='text-red-400 text-center text-2xl p-2 my-3'>{error}</p>
                                 </div>
-                                <div>
-                                    <Link to='/signup'><p className='text-primary hover:scale-110 my-3'>New here? Create a new account</p></Link>
-                                    <p className='my-3'>Or sign up with</p>
-                                    <div className='flex items-center justify-around w-60 mx-auto'>
-                                        <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center'><FaFacebookF /></p></Link>
-                                        <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center'><FaGoogle /></p></Link>
-                                        <Link><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center'><FaGithub /></p></Link>
-                                    </div>
-                                </div>
                             </form>
+                            <GoogleLogin></GoogleLogin>
                         </div>
                     </div>
                     <div className='w-1/2'>

@@ -13,20 +13,27 @@ const GoogleLogin = () => {
     const handleGoogleLogIn = () => {
         googleLogin()
             .then(result => {
-                console.log(result.user);
-                navigate(from, { replace: true })
+                const loggedUser = result.user;
+                const signInUser = { name: loggedUser.displayName, email: loggedUser.email }
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(signInUser)
+                })
+                    .then(res => res.json())
+                    .then(() => {
+                        navigate(from, { replace: true })
+                    })
             })
     }
 
     return (
-        <div className='mt-2 mb-4'>
-            <Link to='/login'><p className='text-primary hover:scale-110 my-3'>Already registered? Go to log in</p></Link>
-            <p className='my-3'>Or sign up with</p>
-            <div className='flex items-center justify-around w-60 mx-auto'>
-                <button><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaFacebookF /></p></button>
-                <button onClick={handleGoogleLogIn}><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGoogle /></p></button>
-                <button><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGithub /></p></button>
-            </div>
+        <div className='flex items-center justify-around w-60 mx-auto mb-6'>
+            <button><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaFacebookF /></p></button>
+            <button onClick={handleGoogleLogIn}><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGoogle /></p></button>
+            <button><p className='h-8 w-8 border-2 border-black rounded-full flex items-center justify-center hover:bg-green-300'><FaGithub /></p></button>
         </div>
     );
 };

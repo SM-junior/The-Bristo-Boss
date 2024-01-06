@@ -53,8 +53,8 @@ const Navbar = () => {
                     <li>
                         <Link to='/dashboard/mycart'>
                             <button className="btn text-xl bg-transparent text-white border-none">
-                                <span><FaShoppingCart></FaShoppingCart></span>
-                                <div className="badge badge-secondary">+{cart.length}</div>
+                                <span><FaShoppingCart className="text-3xl"></FaShoppingCart></span><sup><span className="text-[14px]  bg-orange-600 rounded-full px-1">+{cart.length}</span></sup>
+                                {/* <div className="badge badge-secondary">+{cart.length}</div> */}
                             </button>
                         </Link>
                     </li>

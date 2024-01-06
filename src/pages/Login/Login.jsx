@@ -6,6 +6,7 @@ import { authContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2'
 import { Helmet } from 'react-helmet-async';
 import GoogleLogin from '../../components/googleLogin';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const captchaRef = useRef(null);
@@ -94,6 +95,8 @@ const Login = () => {
                                 <div>
                                     <p className='text-red-400 text-center text-2xl p-2 my-3'>{error}</p>
                                 </div>
+                                <Link to='/signup'><p className='text-primary hover:scale-110'>Don't have an account? Register now!</p></Link>
+                                <p>Or sign up with</p>
                             </form>
                             <GoogleLogin></GoogleLogin>
                         </div>

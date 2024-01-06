@@ -10,6 +10,8 @@ import { useContext } from 'react';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 import GoogleLogin from '../../components/googleLogin';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -18,6 +20,8 @@ const SignUp = () => {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const { createUser, updateUserProfile } = useContext(authContext)
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const onSubmit = (data) => {
         createUser(data.email, data.password)
@@ -42,7 +46,7 @@ const SignUp = () => {
                                         timer: 1500
                                     });
                                     reset()
-                                    navigate('/login')
+                                    navigate(from, { replace: true })
                                 }
                             })
                     })
@@ -105,6 +109,8 @@ const SignUp = () => {
                                     <input className='btn btn-success' type="submit" value="SignUp" />
                                 </div>
                                 <p className='text-red-500'>{error}</p>
+                                <Link to='/login'><p className='text-primary hover:scale-110'>Already have an account? Go to Login!</p></Link>
+                                <p>Or sign up with</p>
                             </form>
                             <GoogleLogin></GoogleLogin>
                         </div>
